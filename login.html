@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - خوارزم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+<div class="login-container">
+    <div class="login-left">
+        <div class="login-brand">
+            <a href="index.html" class="brand">
+                <svg width="50" height="50" viewBox="0 0 42 42">
+                    <polygon points="21,2 38,11.5 38,30.5 21,40 4,30.5 4,11.5" fill="none" stroke="url(#hexGrad)" stroke-width="2.4"/>
+                    <defs>
+                        <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#E9C876"/>
+                            <stop offset="1" stop-color="#0E6E6C"/>
+                        </linearGradient>
+                    </defs>
+                    <text x="21" y="27" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="20" fill="#132322">خ</text>
+                </svg>
+                <span class="brand-text">
+                    <span class="ar">خوارزم</span>
+                </span>
+            </a>
+        </div>
+        
+        <div class="login-visual">
+            <h2>مرحبا بعودتك 👋</h2>
+            <p>تابع رحلتك التعليمية مع خوار</p>
+        </div>
+    </div>
+
+    <div class="login-right">
+        <div class="login-box">
+            <h1>تسجيل الدخول</h1>
+            
+         <form id="loginForm">
+    <div class="form-group">
+        <label for="email">البريد الإلكتروني أو اسم المستخدم</label>
+        <div class="input-wrapper">
+            <span class="input-icon">✉️</span>
+            <input type="text" id="email" placeholder="example@email.com" required>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="password">كلمة المرور</label>
+        <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+    </div>
+    
+    <div class="flex-between">
+        <label class="remember">
+            <input type="checkbox"> تذكرني
+        </label>
+        <a href="#" class="forgot-link">نسيت كلمة المرور؟</a>
+    </div>
+    
+    <button type="submit" class="btn btn-gold full-width">دخول إلى الحساب</button>
+</form>
+            
+            <div class="divider"><span>أو</span></div>
+            
+            <button class="btn btn-outline full-width">🔑 الدخول بحساب جوجل</button>
+            
+           <p class="signup-link">
+    ليس لديك حساب؟ 
+    <a href="signup.html">أنشئ حساب جديد</a>
+</p>
+            
+            <a href="index.html" class="back-home">← العودة للصفحة الرئيسية</a>
+        </div>
+    </div>
+</div>
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    // تحقق بسيط
+    if (!email || !password) {
+        alert("يرجى إدخال البريد الإلكتروني وكلمة المرور");
+        return;
+    }
+
+    // هنا يمكنك إضافة تحقق حقيقي لاحقًا (من السيرفر)
+
+    // حفظ بيانات المستخدم
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userName", email.split("@")[0]); // اسم مؤقت
+
+    alert("✅ تم تسجيل الدخول بنجاح! مرحباً بك 👋");
+    
+    // التوجيه إلى لوحة التحكم
+    window.location.href = "dashboard.html";
+});
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

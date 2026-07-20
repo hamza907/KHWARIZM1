@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="خوارزم - منصة عربية لتعليم البرمجة والذكاء الاصطناعي للأطفال والشباب">
+    <title>خوارزم | تعلّم البرمجة والذكاء الاصطناعي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<!-- زر واتساب عائم -->
+<a href="https://wa.me/+201205749083" 
+   target="_blank"
+   class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+         alt="WhatsApp" width="28" height="28">
+</a>
+
+<style>
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;           /* غيّر إلى right: 25px إذا كنت تفضل اليمين */
+    background: #25D366;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-float img {
+    filter: brightness(0) invert(1);
+}
+</style>
+<body>
+
+<!-- ================= NAV ================= -->
+<header>
+  <nav>
+    <a href="index.html" class="brand">
+      <svg width="42" height="42" viewBox="0 0 42 42">
+        <polygon points="21,2 38,11.5 38,30.5 21,40 4,30.5 4,11.5" fill="none" stroke="url(#hexGrad)" stroke-width="2.4"/>
+        <defs>
+          <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#E9C876"/>
+            <stop offset="1" stop-color="#0E6E6C"/>
+          </linearGradient>
+        </defs>
+        <text x="21" y="27" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="17" fill="#132322">خ</text>
+      </svg>
+      <span class="brand-text">
+        <span class="ar">خوارزم</span>
+        <span class="en">KHWARIZM</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#courses">الدورات</a></li>
+      <li><a href="#features">المميزات</a></li>
+      <li><a href="#pricing">الأسعار</a></li>
+      <li><a href="#stories">قصص النجاح</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="login.html" class="login-link">تسجيل الدخول</a>
+      <a href="#" class="btn btn-gold">ابدأ مجانًا</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hex-field" style="top:0; height:120%;"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge">✨ المنصة العربية الأولى للبرمجة والذكاء الاصطناعي 2026</div>
+      <h1 class="hero-title">
+        تعلّم البرمجة والذكاء الاصطناعي…<br>
+        بعقلية <span class="gold">الخوارزمي</span> <span class="teal">🧮</span>
+      </h1>
+      <p class="hero-sub">رحلة تفاعلية ممتعة تأخذ طفلك من الصفر إلى مطوّر مبتدئ محترف، بأسلوب عربي أصيل وروح تقنية مستقبلية — من سن 8 إلى 18 سنة.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-gold">🚀 ابدأ رحلتك مجانًا</a>
+        <a href="#" class="btn btn-outline">▶ شاهد فيديو تعريفي (دقيقتان)</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="xp-pill">🏅 ‎+50 نقطة خبرة</div>
+      <div class="code-card">
+        <div class="code-topbar">
+          <div class="dots">
+            <span class="dot" style="background:#E4637A"></span>
+            <span class="dot" style="background:#E9C876"></span>
+            <span class="dot" style="background:#6FD6C9"></span>
+          </div>
+          <span class="code-file">الدرس_1.py</span>
+        </div>
+        <div class="code-body">
+          <div><span class="kw">def</span> <span class="fn">سلّم_على_خوار</span>(الاسم):</div>
+          <div>&nbsp;&nbsp;print(<span class="str">"أهلاً يا "</span> + الاسم)</div>
+          <div>&nbsp;</div>
+          <div><span class="kw">for</span> صديق <span class="kw">in</span> [<span class="str">"خوار"</span>, <span class="str">"ليلى"</span>]:</div>
+          <div>&nbsp;&nbsp;<span class="fn">سلّم_على_خوار</span>(صديق)</div>
+          <div>&nbsp;</div>
+          <div><span class="cm"># الناتج:</span></div>
+          <div><span class="out">أهلاً يا خوار</span></div>
+          <div><span class="out">أهلاً يا ليلى</span></div>
+        </div>
+      </div>
+      <div class="streak-pill">🔥 سلسلة 7 أيام!</div>
+      <div class="tutor-strip">
+        <div class="avatar" style="background:var(--teal); font-size:22px;">🤖</div>
+        <div>
+          <strong>خوار يقول:</strong>
+          <p>أحسنت! الحلقات التكرارية قوتك الخارقة 💪</p>
+        </div>
+        <div class="stars">★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div><div class="num">40K+</div><div class="lbl">مبرمج صغير</div></div>
+    <div><div class="num">120+</div><div class="lbl">درس ممتع</div></div>
+    <div><div class="num">12+</div><div class="lbl">دولة عربية</div></div>
+    <div><div class="num">4.9★</div><div class="lbl">تقييم أولياء الأمور</div></div>
+  </div>
+</div>
+
+<!-- ================= COURSES ================= -->
+<section id="courses">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">مراحل التعلّم</span>
+      <h2>اختر مرحلتك في الرحلة 🗺️</h2>
+      <p>من أول "مرحبا بالعالم" إلى بناء نموذج ذكاء اصطناعي خاص بك — خمس مراحل متدرّجة لكل عمر.</p>
+    </div>
+    <div class="filters">
+      <span class="filter-chip active">الكل</span>
+      <span class="filter-chip">مبتدئ (8–12)</span>
+      <span class="filter-chip">متوسط (12–15)</span>
+      <span class="filter-chip">متقدم (15–18)</span>
+    </div>
+    <div class="course-grid">
+
+      <!-- كورس 1 -->
+      <div class="course-card">
+        <div class="course-top" style="background:linear-gradient(135deg,#3FBF7F,#1F8A56);">🐍</div>
+        <div class="course-body">
+          <div class="tag-row"><span class="level-tag lvl-1">مبتدئ</span><span class="lesson-count">24 درسًا</span></div>
+          <h3>مغامرات سكراتش</h3>
+          <p>الخطوات الأولى في التفكير المنطقي عبر قصص وألغاز تفاعلية بصرية.</p>
+          <a href="course.html?course=scratch" class="course-btn" style="background:#1F8A56;">ابدأ الدورة ←</a>
+        </div>
+      </div>
+
+      <!-- كورس 2 -->
+      <div class="course-card">
+        <div class="course-top" style="background:linear-gradient(135deg,#8A6BE0,#5B3FC7);">🤖</div>
+        <div class="course-body">
+          <div class="tag-row"><span class="level-tag lvl-2">متوسط</span><span class="lesson-count">30 درسًا</span></div>
+          <h3>بايثون وصديقي الآلي</h3>
+          <p>تعلّم بايثون وابنِ أول ألعابك، وتحدّث مع خوار مساعدك الذكي.</p>
+          <a href="course.html?course=python" class="course-btn" style="background:#5B3FC7;">ابدأ الدورة ←</a>
+        </div>
+      </div>
+
+      <!-- كورس 3 -->
+      <div class="course-card">
+        <div class="course-top" style="background:linear-gradient(135deg,#F0A15B,#E0632E);">🎮</div>
+        <div class="course-body">
+          <div class="tag-row"><span class="level-tag lvl-1">مبتدئ</span><span class="lesson-count">22 درسًا</span></div>
+          <h3>مختبر صناعة الألعاب</h3>
+          <p>صمّم لعبتك الخاصة من الصفر باستخدام Pygame خطوة بخطوة.</p>
+          <a href="course.html?course=games" class="course-btn" style="background:#E0632E;">ابدأ الدورة ←</a>
+        </div>
+      </div>
+
+      <!-- كورس 4 -->
+      <div class="course-card">
+        <div class="course-top" style="background:linear-gradient(135deg,#4FA8E8,#1E6FBF);">🌐</div>
+        <div class="course-body">
+          <div class="tag-row"><span class="level-tag lvl-2">متوسط</span><span class="lesson-count">26 درسًا</span></div>
+          <h3>مدرسة سحر الويب</h3>
+          <p>اكتب تعويذات HTML وCSS وJavaScript وابنِ مواقعك التفاعلية.</p>
+          <a href="course.html?course=web" class="course-btn" style="background:#1E6FBF;">ابدأ الدورة ←</a>
+        </div>
+      </div>
+
+      <!-- كورس 5 -->
+      <div class="course-card">
+        <div class="course-top" style="background:linear-gradient(135deg,#F16B85,#C6304F);">🧠</div>
+        <div class="course-body">
+          <div class="tag-row"><span class="level-tag lvl-3">متقدم</span><span class="lesson-count">20 درسًا</span></div>
+          <h3>عقول وآلات الذكاء الاصطناعي</h3>
+          <p>اكتشف كيف تفكّر الآلات، ودرّب أول نموذج تعلّم آلي بنفسك.</p>
+          <a href="course.html?course=ai" class="course-btn" style="background:#C6304F;">ابدأ الدورة ←</a>
+        </div>
+      </div>
+
+      <!-- كورس 6 -->
+      <div class="course-card">
+        <div class="course-top" style="background:linear-gradient(135deg,var(--gold-light),var(--gold-deep));">🏗️</div>
+        <div class="course-body">
+          <div class="tag-row"><span class="level-tag lvl-3">متقدم</span><span class="lesson-count">18 درسًا</span></div>
+          <h3>بوابة المطوّر المحترف</h3>
+          <p>هندسة الأنظمة، العمل الجماعي على GitHub، والتحضير لأول مقابلة تقنية.</p>
+          <a href="course.html?course=pro" class="course-btn" style="background:var(--gold-deep);">ابدأ الدورة ←</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">ليش يحبها الأطفال</span>
+      <h2>تعلّم يشبه اللعب تمامًا 🎉</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#FCE3E7;">🎮</div>
+        <h3>تعلّم باللعب</h3>
+        <p>كل درس تحدٍّ صغير — اجمع النجوم وافتح عوالم جديدة.</p>
+      </div>
+      <div class="feat-card highlight">
+        <div class="feat-icon" style="background:linear-gradient(135deg,var(--gold-light),var(--gold));">🤖</div>
+        <h3>خوار، صديقك الذكي</h3>
+        <p>مساعدك الآلي بعمامته المستقبلية يشرح ويشجّع كلما تعثّرت.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#FBF0D4;">🏅</div>
+        <h3>شارات حقيقية</h3>
+        <p>اطبع شهاداتك وشاركها مع العائلة والأصدقاء بكل فخر.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:#DCF1EE;">🌍</div>
+        <h3>مجتمع عربي متصل</h3>
+        <p>تواصل مع مبرمجين صغار من كل الوطن العربي.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MASCOT ================= -->
+<section>
+  <div class="wrap mascot-strip">
+    <div class="mascot-visual">
+      <svg width="240" height="260" viewBox="0 0 240 260">
+        <ellipse cx="120" cy="245" rx="70" ry="10" fill="#00000012"/>
+        <!-- turban -->
+        <path d="M55 95 Q120 30 185 95 Q185 60 120 55 Q55 60 55 95Z" fill="var(--teal)"/>
+        <circle cx="120" cy="50" r="10" fill="var(--gold)"/>
+        <path d="M60 92 Q120 118 180 92 L180 108 Q120 132 60 108 Z" fill="var(--teal-dark)"/>
+        <!-- head -->
+        <rect x="55" y="100" width="130" height="110" rx="30" fill="#F4EFE2" stroke="var(--ink)" stroke-width="3"/>
+        <!-- face plate -->
+        <rect x="75" y="130" width="90" height="55" rx="18" fill="#132322"/>
+        <circle cx="102" cy="157" r="9" fill="var(--gold-light)"/>
+        <circle cx="138" cy="157" r="9" fill="var(--gold-light)"/>
+        <path d="M108 172 Q120 180 132 172" stroke="#6FD6C9" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- ears/antennae -->
+        <circle cx="48" cy="150" r="9" fill="var(--gold)"/>
+        <circle cx="192" cy="150" r="9" fill="var(--gold)"/>
+        <!-- body -->
+        <rect x="75" y="210" width="90" height="45" rx="16" fill="var(--teal)"/>
+        <polygon points="120,222 130,236 110,236" fill="var(--gold-light)"/>
+      </svg>
+    </div>
+    <div class="txt">
+      <span class="eyebrow">تعرّف على مرشدك</span>
+      <h2>هذا خوار 👋<br>مساعدك الآلي الأمين</h2>
+      <p>سُمّي تيمنًا بإرث الخوارزمي، يجمع خوار بين الحكمة العربية العريقة والتقنية المستقبلية، ليرافق طفلك في كل خطوة من الصفر وحتى الاحتراف.</p>
+      <a href="#" class="btn btn-teal">تعرّف على خوار أكثر ←</a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ================= PRICING ================= -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">باقات الاشتراك</span>
+      <h2>اختر الباقة المناسبة لطفلك</h2>
+      <p>اشتراكات مرنة مع قيمة ممتازة</p>
+    </div>
+    <div class="price-grid">
+
+      <!-- باقة 1 -->
+      <div class="price-card">
+        <h3>الباقة الفضية</h3>
+        <div class="price">5,000 ج.م</div>
+        <p style="color:#666; margin:10px 0 20px;">لمدة 3 أشهر</p>
+        <ul>
+          <li><span class="check">✓</span> الوصول لجميع الدورات</li>
+          <li><span class="check">✓</span> مساعد خوار الذكي</li>
+          <li><span class="check">✓</span> شهادات إلكترونية</li>
+          <li><span class="check">✓</span> دعم فني</li>
+        </ul>
+        <a href="payment.html?plan=silver" class="btn btn-outline">اشترك الآن</a>
+      </div>
+
+      <!-- باقة 2 -->
+      <div class="price-card">
+        
+        <h3>الباقة الذهبية</h3>
+        <div class="price">11,000 ج.م</div>
+        <p style="color:#666; margin:10px 0 20px;">لمدة 6 أشهر</p>
+        <ul>
+          <li><span class="check">✓</span> كل المميزات + جلسات لايف</li>
+          <li><span class="check">✓</span> تقارير تقدم شهرية</li>
+          <li><span class="check">✓</span> دعم أولوية</li>
+          <li><span class="check">✓</span> شهادات مطبوعة</li>
+        </ul>
+        <a href="payment.html?plan=gold" class="btn btn-gold">اشترك الآن</a>
+      </div>
+
+      <!-- باقة 3 -->
+      <div class="price-card">
+        <h3>الباقة البلاتينية</h3>
+        <div class="price">18,000 ج.م</div>
+        <p style="color:#666; margin:10px 0 20px;">لمدة 12 شهر (سنة كاملة)</p>
+        <ul>
+          <li><span class="check">✓</span> كل المميزات السابقة</li>
+          <li><span class="check">✓</span> جلسات خاصة 1:1</li>
+          <li><span class="check">✓</span> مشاريع شخصية متطورة</li>
+          <li><span class="check">✓</span> دعم 24/7</li>
+        </ul>
+        <a href="payment.html?plan=platinum" class="btn btn-outline">اشترك الآن</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section>
+  <div class="wrap">
+    <div class="cta-banner">
+      <div style="font-size:34px;">🚀</div>
+      <h2>جاهز تطلق مستقبل طفلك؟</h2>
+      <p>انضم إلى 40,000 مبرمج صغير عربي يبنون تطبيقات وألعابًا ونماذج ذكاء اصطناعي. التسجيل يأخذ 5 دقائق فقط!</p>
+      <a href="#" class="btn">🚀 ابدأ البرمجة مجانًا</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand">
+          <svg width="38" height="38" viewBox="0 0 42 42">
+            <polygon points="21,2 38,11.5 38,30.5 21,40 4,30.5 4,11.5" fill="none" stroke="url(#hexGrad2)" stroke-width="2.4"/>
+            <defs><linearGradient id="hexGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9C876"/><stop offset="1" stop-color="#0E6E6C"/></linearGradient></defs>
+            <text x="21" y="27" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="17" fill="#fff">خ</text>
+          </svg>
+          <span class="brand-text"><span class="ar">خوارزم</span><span class="en" style="color:var(--gold-light)">KHWARIZM</span></span>
+        </a>
+        <p>نجعل تعلّم البرمجة والذكاء الاصطناعي رحلة ممتعة لكل طفل عربي، بروح الخوارزمي.</p>
+      </div>
+      <div>
+        <h4>التعلّم</h4>
+        <ul>
+          <li><a href="#">بايثون</a></li>
+          <li><a href="#">تطوير الويب</a></li>
+          <li><a href="#">الذكاء الاصطناعي</a></li>
+          <li><a href="#">صناعة الألعاب</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>الشركة</h4>
+        <ul>
+          <li><a href="#">من نحن</a></li>
+          <li><a href="#">المدونة</a></li>
+          <li><a href="#">الوظائف</a></li>
+          <li><a href="#">الإعلام</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>الدعم</h4>
+        <ul>
+          <li><a href="#">مركز المساعدة</a></li>
+          <li><a href="#">أسئلة أولياء الأمور</a></li>
+          <li><a href="#">المعلّمون</a></li>
+          <li><a href="#">تواصل معنا</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 خوارزم — جميع الحقوق محفوظة.</div>
+  </div>
+ <!-- ================= وسائل التواصل SVG ================= -->
+<div class="social-icons">
+    <a href="https://facebook.com/khwarizm" target="_blank" class="social-svg" title="فيسبوك">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+    </a>
+    
+    <a href="https://instagram.com/khwarizm" target="_blank" class="social-svg" title="إنستغرام">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="17.5" cy="6.5" r="1.5"/>
+        </svg>
+    </a>
+    
+    <a href="https://youtube.com/@khwarizm" target="_blank" class="social-svg" title="يوتيوب">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816z"/>
+            <path d="M10 9.5L15.5 12L10 14.5V9.5z"/>
+        </svg>
+    </a>
+    
+    <a href="https://wa.me/201234567890" target="_blank" class="social-svg" title="واتساب">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.485-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.669-1.612-.917-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 2C6.48 2 2 6.59 2 12.253c0 2.86 1.223 5.45 3.185 7.25L4 22l2.74-1.41c1.68.93 3.61 1.42 5.56 1.42 5.52 0 10-4.59 10-10.247S17.52 2 12 2z"/>
+        </svg>
+    </a>
+</div>
+
+<style>
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 35px 0;
+}
+
+.social-svg {
+    color: #64748b;
+    transition: all 0.3s ease;
+}
+
+.social-svg:hover {
+    color: #E9C876;
+    transform: translateY(-5px) scale(1.2);
+}
+</style>
+
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

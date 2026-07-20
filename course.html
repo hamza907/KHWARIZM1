@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="course-title">دورة - خوارزم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<!-- زر واتساب عائم -->
+<a href="https://wa.me/+201205749083" 
+   target="_blank"
+   class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+         alt="WhatsApp" width="28" height="28">
+</a>
+
+<style>
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;           /* غيّر إلى right: 25px إذا كنت تفضل اليمين */
+    background: #25D366;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-float img {
+    filter: brightness(0) invert(1);
+}
+</style>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="brand">← العودة إلى الصفحة الرئيسية</a>
+  </nav>
+</header>
+
+<div class="course-page">
+    <div class="course-hero" id="course-hero">
+        <div class="course-info">
+            <span id="course-emoji" class="course-emoji"></span>
+            <h1 id="course-title">اسم الدورة</h1>
+            <div class="course-meta">
+                <span id="course-level"></span>
+                <span id="course-lessons"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="course-main">
+        <!-- قائمة الدروس -->
+        <div class="lessons-sidebar">
+            <h3>📚 قائمة الدروس</h3>
+            <div id="lessons-list" class="lessons-list"></div>
+        </div>
+
+        <!-- محتوى الدرس الحالي -->
+        <div class="lesson-content-area">
+            <div class="lesson-header">
+                <h2 id="lesson-title">اختر درساً من القائمة</h2>
+                <div class="progress-bar">
+                    <div class="progress" id="progress" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div id="lesson-content" class="lesson-content">
+                <p style="text-align:center; color:#666; font-size:18px; margin-top:50px;">
+                    👈 اختر درس من الجانب لتبدأ التعلم
+                </p>
+            </div>
+
+            <div class="lesson-footer">
+                <button id="prev-btn" class="btn btn-outline">← الدرس السابق</button>
+                <button id="next-btn" class="btn btn-gold">الدرس التالي →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ================= بيانات الكورسات =================
+const coursesData = {
+    "scratch": {
+        title: "مغامرات سكراتش",
+        emoji: "🐍",
+        color: "#3FBF7F",
+        level: "مبتدئ (8-12 سنة)",
+        totalLessons: 24,
+        lessons: [
+            { id: 1, title: "مرحبا بالعالم في سكراتش", content: "<h3>الدرس الأول</h3><p>سنتعلم كيفية إنشاء أول مشروع واستخدام الكتل الأساسية.</p><pre>حركة + مظهر + صوت</pre>" },
+            { id: 2, title: "الحركة والتحكم في الشخصيات", content: "<p>تعلم أوامر الحركة والتنقل بين الاتجاهات.</p>" },
+            { id: 3, title: "المتغيرات والنقاط", content: "<p>إنشاء نظام نقاط في اللعبة.</p>" }
+        ]
+    },
+    "python": {
+        title: "بايثون وصديقي الآلي",
+        emoji: "🤖",
+        color: "#8A6BE0",
+        level: "متوسط (12-15 سنة)",
+        totalLessons: 30,
+        lessons: [
+            { id: 1, title: "مقدمة في بايثون", content: "<pre><code>print('مرحبا يا خوار!')</code></pre><p>أول برنامج لك.</p>" },
+            { id: 2, title: "الدوال والمدخلات", content: "<p>كتابة دوال واستقبال المدخلات من المستخدم.</p>" }
+        ]
+    },
+    "games": {
+        title: "مختبر صناعة الألعاب",
+        emoji: "🎮",
+        color: "#F0A15B",
+        level: "مبتدئ",
+        totalLessons: 22,
+        lessons: []
+    },
+    "web": {
+        title: "مدرسة سحر الويب",
+        emoji: "🌐",
+        color: "#4FA8E8",
+        level: "متوسط",
+        totalLessons: 26,
+        lessons: []
+    },
+    "ai": {
+        title: "عقول وآلات الذكاء الاصطناعي",
+        emoji: "🧠",
+        color: "#F16B85",
+        level: "متقدم",
+        totalLessons: 20,
+        lessons: []
+    },
+    "pro": {
+        title: "بوابة المطوّر المحترف",
+        emoji: "🏗️",
+        color: "#E9C876",
+        level: "متقدم",
+        totalLessons: 18,
+        lessons: []
+    }
+};
+
+let currentCourseKey = "scratch";
+let currentLessonIndex = 0;
+
+// تحميل الكورس
+function loadCourse(key) {
+    const course = coursesData[key];
+    if (!course) return;
+
+    currentCourseKey = key;
+    document.getElementById("course-title").textContent = course.title;
+    document.getElementById("course-emoji").textContent = course.emoji;
+    document.getElementById("course-level").textContent = course.level;
+    document.getElementById("course-lessons").textContent = course.totalLessons + " درس";
+
+    // تحميل الدروس
+    loadLessons(course);
+}
+
+function loadLessons(course) {
+    const container = document.getElementById("lessons-list");
+    container.innerHTML = "";
+
+    course.lessons.forEach((lesson, index) => {
+        const item = document.createElement("div");
+        item.className = "lesson-item";
+        item.innerHTML = `<span>${lesson.id}</span> ${lesson.title}`;
+        item.onclick = () => showLesson(index);
+        container.appendChild(item);
+    });
+
+    if (course.lessons.length > 0) {
+        showLesson(0);
+    }
+}
+
+function showLesson(index) {
+    const course = coursesData[currentCourseKey];
+    const lesson = course.lessons[index];
+    if (!lesson) return;
+
+    currentLessonIndex = index;
+    document.getElementById("lesson-title").textContent = lesson.title;
+    document.getElementById("lesson-content").innerHTML = lesson.content;
+
+    // تحديث شريط التقدم
+    const progress = ((index + 1) / course.lessons.length) * 100;
+    document.getElementById("progress").style.width = progress + "%";
+}
+
+// أزرار التنقل
+document.getElementById("next-btn").onclick = () => {
+    const course = coursesData[currentCourseKey];
+    if (currentLessonIndex < course.lessons.length - 1) {
+        showLesson(currentLessonIndex + 1);
+    }
+};
+
+document.getElementById("prev-btn").onclick = () => {
+    if (currentLessonIndex > 0) {
+        showLesson(currentLessonIndex - 1);
+    }
+};
+
+// تحميل الكورس من الـ URL
+window.onload = () => {
+    const params = new URLSearchParams(window.location.search);
+    const courseKey = params.get('course') || 'scratch';
+    loadCourse(courseKey);
+};
+</script>
+<button onclick="window.open('live-session.html', '_blank')" class="btn btn-gold">
+    انضم الأن 
+</button>
+</body>
+</html>

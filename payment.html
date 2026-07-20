@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاشتراك والدفع - خوارزم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2**✅ تم تعديل صفحة الدفع بالكامل** لتتناسب مع الباقات الجديدة:
+
+### `payment.html` (النسخة المحدثة):
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاشتراك والدفع - خوارزم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .payment-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .plan-card {
+            border: 3px solid #eee;
+            border-radius: 20px;
+            padding: 35px 25px;
+            transition: all 0.4s;
+            background: white;
+            text-align: center;
+        }
+        .plan-card.popular {
+            border-color: #E9C876;
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(233, 200, 118, 0.25);
+        }
+        .price {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #132322;
+            margin: 15px 0;
+        }
+        .duration {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        .payment-form {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body class="login-page">
+
+<div class="payment-page">
+    <div style="text-align:center; margin-bottom:50px;">
+        <h1>اختر باقتك</h1>
+        <p>ابدأ رحلة طفلك في عالم البرمجة والذكاء الاصطناعي</p>
+    </div>
+
+    <div class="price-grid" style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+
+        <!-- باقة فضية -->
+        <div class="plan-card" style="width: 340px;">
+            <h3>الباقة الفضية</h3>
+            <div class="price">5,000 ج.م</div>
+            <div class="duration">لمدة 3 أشهر</div>
+            <ul style="text-align:right; margin:25px 0; line-height:2.3;">
+                <li>✓ الوصول لجميع الدورات</li>
+                <li>✓ مساعد خوار الذكي</li>
+                <li>✓ شهادات إلكترونية</li>
+                <li>✓ دعم فني</li>
+            </ul>
+            <button onclick="selectPlan(this, 5000, 'الباقة الفضية - 3 أشهر')" class="btn btn-outline full-width">اشترك الآن</button>
+        </div>
+
+        <!-- باقة ذهبية -->
+        <div class="plan-card popular" style="width: 340px;">
+            
+            <h3>الباقة الذهبية</h3>
+            <div class="price">11,000 ج.م</div>
+            <div class="duration">لمدة 6 أشهر</div>
+            <ul style="text-align:right; margin:25px 0; line-height:2.3;">
+                <li>✓ كل مميزات الفضية</li>
+                <li>✓ جلسات لايف أسبوعية</li>
+                <li>✓ تقارير تقدم شهرية</li>
+                <li>✓ دعم أولوية</li>
+                <li>✓ شهادات مطبوعة</li>
+            </ul>
+            <button onclick="selectPlan(this, 11000, 'الباقة الذهبية - 6 أشهر')" class="btn btn-gold full-width">اشترك الآن</button>
+        </div>
+
+        <!-- باقة بلاتينية -->
+        <div class="plan-card" style="width: 340px;">
+            <h3>الباقة البلاتينية</h3>
+            <div class="price">20,000 ج.م</div>
+            <div class="duration">لمدة 12 شهر (سنة كاملة)</div>
+            <ul style="text-align:right; margin:25px 0; line-height:2.3;">
+                <li>✓ كل المميزات السابقة</li>
+                <li>✓ جلسات خاصة 1:1</li>
+                <li>✓ مشاريع شخصية</li>
+                <li>✓ دعم 24/7</li>
+            </ul>
+            <button onclick="selectPlan(this, 20000, 'الباقة البلاتينية - 12 شهر')" class="btn btn-outline full-width">اشترك الآن</button>
+        </div>
+
+    </div>
+
+    <!-- نموذج الدفع -->
+    <div class="payment-form" id="payment-form" style="display:none;">
+        <h2>إتمام الدفع</h2>
+        <p>الباقة المختارة: <strong id="selected-plan"></strong></p>
+
+        <form id="paymentForm">
+            <div class="form-group">
+                <label>رقم البطاقة</label>
+                <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
+            </div>
+            <div style="display:flex; gap:20px;">
+                <div class="form-group" style="flex:1;">
+                    <label>تاريخ الانتهاء (MM/YY)</label>
+                    <input type="text" placeholder="MM/YY" maxlength="5" required>
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>CVV</label>
+                    <input type="text" placeholder="123" maxlength="4" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-gold full-width" style="margin-top:30px; padding:16px;">ادفع الآن</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function selectPlan(btn, price, planName) {
+    document.getElementById("payment-form").style.display = "block";
+    document.getElementById("selected-plan").innerHTML = `${planName} <br><strong>${price.toLocaleString()} جنيه</strong>`;
+    
+    window.scrollTo({
+        top: document.getElementById("payment-form").offsetTop - 50,
+        behavior: 'smooth'
+    });
+}
+
+document.getElementById("paymentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    alert("✅ تمت عملية الدفع بنجاح!\n\nشكراً لاشتراكك في خوارزم\nسيتم تفعيل حسابك خلال دقائق.");
+    window.location.href = "dashboard.html";
+});
+</script>
+
+</body>
+</html>
