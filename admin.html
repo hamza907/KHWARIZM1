@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة - خوارزم</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container { display: flex; min-height: 100vh; background: #f8f9fa; }
+        .sidebar { width: 280px; background: #132322; color: white; padding: 30px 20px; }
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .stat-card { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
+        th, td { padding: 14px; text-align: right; border-bottom: 1px solid #eee; }
+        th { background: #132322; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 style="color:#E9C876;">لوحة الإدارة</h2>
+        <ul style="list-style:none; padding:0; margin-top:30px;">
+            <li onclick="showSection('overview')" style="padding:12px 0; cursor:pointer;">📊 نظرة عامة</li>
+            <li onclick="showSection('students')" style="padding:12px 0; cursor:pointer;">👨‍🎓 الطلاب</li>
+            <li onclick="showSection('teachers')" style="padding:12px 0; cursor:pointer;">👨‍🏫 المعلمين</li>
+            <li onclick="showSection('courses')" style="padding:12px 0; cursor:pointer;">📚 الدورات</li>
+            <li onclick="showSection('payments')" style="padding:12px 0; cursor:pointer;">💰 المدفوعات</li>
+            <li onclick="showSection('reports')" style="padding:12px 0; cursor:pointer;">📈 التقارير</li>
+        </ul>
+        <br><br>
+        <a href="index.html" style="color:#E9C876;">← العودة للموقع</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
+            <h1 id="page-title">نظرة عامة</h1>
+            <button onclick="logout()">تسجيل خروج</button>
+        </div>
+
+        <!-- Overview -->
+        <div id="overview-section">
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <h3>إجمالي الطلاب</h3>
+                    <h2 style="color:#3FBF7F;">1,847</h2>
+                    <small>+12% هذا الشهر</small>
+                </div>
+                <div class="stat-card">
+                    <h3>الدورات النشطة</h3>
+                    <h2 style="color:#E9C876;">68</h2>
+                </div>
+                <div class="stat-card">
+                    <h3>إيرادات الشهر</h3>
+                    <h2 style="color:#0E6E6C;">248,500 ج.م</h2>
+                </div>
+                <div class="stat-card">
+                    <h3>معدل الإكمال</h3>
+                    <h2 style="color:#6FD6C9;">81%</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students Management -->
+        <div id="students-section" style="display:none;">
+            <h2>إدارة الطلاب</h2>
+            <input type="text" placeholder="بحث عن طالب..." style="width:100%; padding:12px; margin-bottom:20px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>البريد</th>
+                        <th>الدورات</th>
+                        <th>التقدم</th>
+                        <th>الإجراء</th>
+                    </tr>
+                </thead>
+                <tbody id="students-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Teachers -->
+        <div id="teachers-section" style="display:none;">
+            <h2>إدارة المعلمين</h2>
+            <button onclick="alert('تم إضافة معلم جديد')">+ إضافة معلم</button>
+        </div>
+
+        <!-- Courses -->
+        <div id="courses-section" style="display:none;">
+            <h2>إدارة الدورات</h2>
+            <button onclick="alert('تم إضافة دورة جديدة')">+ إضافة دورة</button>
+        </div>
+
+        <!-- Payments -->
+        <div id="payments-section" style="display:none;">
+            <h2>المدفوعات والاشتراكات</h2>
+            <p>إجمالي الإيرادات: <strong>1,245,000 ج.م</strong></p>
+        </div>
+    </div>
+</div>
+
+<script>
+// حماية الصفحة
+if (localStorage.getItem("isAdmin") !== "true") {
+    alert("غير مصرح لك بالدخول");
+    window.location.href = "login.html";
+}
+
+function showSection(section) {
+    document.querySelectorAll('.main-content > div').forEach(div => div.style.display = 'none');
+    document.getElementById(section + '-section').style.display = 'block';
+    document.getElementById('page-title').textContent = {
+        'overview': 'نظرة عامة',
+        'students': 'إدارة الطلاب',
+        'teachers': 'إدارة المعلمين',
+        'courses': 'إدارة الدورات',
+        'payments': 'المدفوعات'
+    }[section];
+}
+
+function logout() {
+    if (confirm("تأكيد تسجيل الخروج؟")) {
+        localStorage.removeItem("isAdmin");
+        window.location.href = "login.html";
+    }
+}
+
+// بيانات تجريبية
+const students = [
+    {name: "يوسف أحمد", email: "youssef@email.com", courses: 3, progress: "85%"},
+    {name: "سارة محمد", email: "sara@email.com", courses: 2, progress: "62%"},
+];
+
+const tbody = document.getElementById("students-body");
+students.forEach(s => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+        <td>${s.name}</td>
+        <td>${s.email}</td>
+        <td>${s.courses}</td>
+        <td>${s.progress}</td>
+        <td><button>تفاصيل</button></td>
+    `;
+    tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

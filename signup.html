@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إنشاء حساب - خوارزم</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-page">
@@ -13,27 +11,11 @@
 <div class="login-container">
     <div class="login-left">
         <div class="login-brand">
-            <a href="index.html" class="brand">
-                <svg width="50" height="50" viewBox="0 0 42 42">
-                    <polygon points="21,2 38,11.5 38,30.5 21,40 4,30.5 4,11.5" fill="none" stroke="url(#hexGrad)" stroke-width="2.4"/>
-                    <defs>
-                        <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0" stop-color="#E9C876"/>
-                            <stop offset="1" stop-color="#0E6E6C"/>
-                        </linearGradient>
-                    </defs>
-                    <text x="21" y="27" text-anchor="middle" font-family="Cinzel, serif" font-weight="700" font-size="20" fill="#132322">خ</text>
-                </svg>
-                <span class="brand-text">
-                    <span class="ar">خوارزم</span>
-                </span>
-            </a>
+            <a href="index.html" class="brand">خوارزم</a>
         </div>
-        
         <div class="login-visual">
             <h2>انضم إلينا الآن 👋</h2>
-            <p>ابدأ رحلة طفلك في عالم البرمجة والذكاء الاصطناعي</p>
-            <div class="mascot-small" style="font-size: 80px;">🤖</div>
+            <p>ابدأ رحلتك التعليمية مع أفضل منصة عربية</p>
         </div>
     </div>
 
@@ -43,130 +25,115 @@
             
             <form id="signupForm">
                 <div class="form-group">
-                    <label for="name">الاسم الكامل</label>
-                    <input type="text" id="name" placeholder="أحمد محمد" required>
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="name" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" placeholder="example@email.com" required>
-                </div>
-
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="email" required>
                 <div class="form-group">
-                    <label for="phone">رقم الجوال (اختياري)</label>
-                    <input type="tel" id="phone" placeholder="05xxxxxxxx">
-                </div>
+    <label>كلمة المرور</label>
+    <div style="position:relative;">
+        <input type="password" id="password" required>
+        <span onclick="togglePassword('password')" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666;">👁️</span>
+    </div>
+</div>
 
-                <div class="form-group">
-                    <label for="password">كلمة المرور</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="confirm-password">تأكيد كلمة المرور</label>
-                    <input type="password" id="confirm-password" placeholder="••••••••" required>
-                </div>
-
-                <label class="remember" style="margin: 15px 0; display: block;">
-                    <input type="checkbox" required> أوافق على <a href="#">شروط الاستخدام</a> وسياسة الخصوصية
-                </label>
-
+<div class="form-group">
+    <label>تأكيد كلمة المرور</label>
+    <div style="position:relative;">
+        <input type="password" id="confirm-password" required>
+        <span onclick="togglePassword('confirm-password')" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666;">👁️</span>
+    </div>
+</div>
                 <button type="submit" class="btn btn-gold full-width">إنشاء الحساب</button>
             </form>
-            
-            <div class="divider"><span>أو</span></div>
-            
-            <button class="btn btn-outline full-width google-btn">
-                🔑 الاشتراك بحساب جوجل
-            </button>
-            
+
             <p class="signup-link">
-                لديك حساب بالفعل؟ 
-                <a href="login.html">تسجيل الدخول</a>
+                لديك حساب؟ <a href="login.html">تسجيل الدخول</a>
             </p>
-            
-            <a href="index.html" class="back-home">← العودة للصفحة الرئيسية</a>
         </div>
     </div>
 </div>
 
 <script>
-// التحقق المتقدم + الربط بلوحة التحكم
-document.getElementById("signupForm").addEventListener("submit", function(e) {
+// نظام تسجيل المستخدمين
+// ملاحظة أمنية: التجزئة (hashing) هنا بتتم في المتصفح كإجراء مؤقت لتقليل خطورة
+// تخزين الباسورد كنص صريح في localStorage. ده تحسين بسيط وليس بديلاً عن نظام
+// مصادقة حقيقي من طرف السيرفر (bcrypt/argon2 + salt + جلسات JWT)، وهو مطلوب
+// قبل إطلاق المنصة فعلياً لأن أي حد يقدر يفتح Developer Tools ويقرأ/يعدّل localStorage.
+async function hashPassword(password) {
+    const data = new TextEncoder().encode(password);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+// إيميلات محجوزة لا يُسمح بالتسجيل بها من الفورم العام (مثل حساب الأدمن).
+// ملاحظة مهمة: ده تخفيف مؤقت فقط. الحماية الحقيقية للأدمن لازم تتم من السيرفر
+// (دور/role مُتحقق منه في قاعدة بيانات، مش مجرد مطابقة إيميل في كود الفرونت-إند
+// اللي أي حد يقدر يقرأه بـ View Source).
+const RESERVED_EMAILS = ["admin@khwarizm.com"];
+
+document.getElementById("signupForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-    
+
     const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
     const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
+    const confirm = document.getElementById("confirm-password").value;
 
-    clearErrors();
-
-    let isValid = true;
-
-    if (name.length < 3) {
-        showError("name", "الاسم يجب أن يكون 3 أحرف على الأقل");
-        isValid = false;
+    if (RESERVED_EMAILS.includes(email)) {
+        alert("هذا البريد الإلكتروني غير متاح للتسجيل");
+        return;
     }
 
-    if (!isValidEmail(email)) {
-        showError("email", "يرجى إدخال بريد إلكتروني صحيح");
-        isValid = false;
+    if (password !== confirm) {
+        alert("كلمات المرور غير متطابقة");
+        return;
+    }
+    if (password.length < 6) {
+        alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+        return;
     }
 
-    if (password.length < 8) {
-        showError("password", "كلمة المرور يجب أن تكون 8 أحرف على الأقل");
-        isValid = false;
-    } else if (!isStrongPassword(password)) {
-        showError("password", "كلمة المرور يجب أن تحتوي على حرف كبير، صغير، ورقم");
-        isValid = false;
+    // حفظ المستخدم (نظام محلي حالياً)
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    
+    // التحقق من عدم وجود البريد مسبقاً
+    if (users.find(u => u.email === email)) {
+        alert("هذا البريد مسجل بالفعل!");
+        return;
     }
 
-    if (password !== confirmPassword) {
-        showError("confirm-password", "كلمات المرور غير متطابقة");
-        isValid = false;
-    }
+    const passwordHash = await hashPassword(password);
+    users.push({ name, email, passwordHash, role: "student", createdAt: new Date().toISOString() });
+    localStorage.setItem("users", JSON.stringify(users));
 
-    if (isValid) {
-        // حفظ بيانات المستخدم
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userName", name);
-        localStorage.setItem("userEmail", email);
+    alert(`✅ تم إنشاء الحساب بنجاح!\nمرحباً ${name}`);
+    
+    // تسجيل دخول تلقائي
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userName", name);
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("isAdmin", "false");
 
-        alert(`✅ تم إنشاء الحساب بنجاح!\nمرحباً ${name} 🎉`);
-        
-        // التوجيه إلى لوحة التحكم
-        window.location.href = "dashboard.html";
-    }
+    window.location.href = "dashboard.html";
 });
 
-// دوال المساعدة
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function isStrongPassword(password) {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
-}
-
-function showError(fieldId, message) {
+// دالة إظهار / إخفاء كلمة المرور
+function togglePassword(fieldId) {
     const field = document.getElementById(fieldId);
-    const errorDiv = document.createElement("div");
-    errorDiv.className = "error-message";
-    errorDiv.style.color = "red";
-    errorDiv.style.fontSize = "0.9rem";
-    errorDiv.style.marginTop = "5px";
-    errorDiv.textContent = message;
-    field.parentNode.appendChild(errorDiv);
-    field.style.borderColor = "red";
+    const icon = field.parentElement.querySelector("span");
+    
+    if (field.type === "password") {
+        field.type = "text";
+        icon.textContent = "🙈";   // عين مغلقة
+    } else {
+        field.type = "password";
+        icon.textContent = "👁️";   // عين مفتوحة
+    }
 }
 
-function clearErrors() {
-    document.querySelectorAll('.error-message').forEach(el => el.remove());
-    document.querySelectorAll('input').forEach(input => {
-        input.style.borderColor = "";
-    });
-}
 </script>
 </body>
 </html>

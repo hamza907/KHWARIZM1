@@ -3,51 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="course-title">دورة - خوارزم</title>
+    <title id="page-title">دورة - خوارزم</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+        .whatsapp-float img { filter: brightness(0) invert(1); }
+
+        .lesson-item.completed { border-right: 4px solid #3FBF7F; }
+        .lesson-item.completed::after { content: " ✅"; }
+        .lesson-item.active { background: rgba(233, 200, 118, 0.2); font-weight: 800; }
+
+        .lesson-controls { margin: 25px 0; display: flex; gap: 15px; flex-wrap: wrap; }
+        .overall-progress-wrap { margin: 20px 0; background: #eee; height: 10px; border-radius: 10px; overflow: hidden; }
+        .overall-progress-bar { height: 100%; background: #3FBF7F; width: 0%; transition: width .4s ease; }
+
+        #quiz-container { display: none; margin-top: 30px; background: #f0f8ff; padding: 25px; border-radius: 16px; }
+        #quiz-options button { display: block; width: 100%; text-align: right; margin: 8px 0; padding: 12px; border-radius: 10px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+        #quiz-options button.selected { border-color: #E9C876; background: rgba(233,200,118,0.15); }
+
+        .code-exercise textarea { width: 100%; height: 160px; font-family: monospace; padding: 15px; border-radius: 12px; border: 2px solid #ddd; direction: ltr; text-align: left; }
+        .code-exercise pre { background: #f0f0f0; padding: 15px; border-radius: 8px; margin-top: 10px; min-height: 40px; direction: ltr; text-align: left; }
+    </style>
 </head>
-<!-- زر واتساب عائم -->
-<a href="https://wa.me/+201205749083" 
-   target="_blank"
-   class="whatsapp-float">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
-         alt="WhatsApp" width="28" height="28">
-</a>
-
-<style>
-.whatsapp-float {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;           /* غيّر إلى right: 25px إذا كنت تفضل اليمين */
-    background: #25D366;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.15);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-}
-
-.whatsapp-float img {
-    filter: brightness(0) invert(1);
-}
-</style>
 <body>
 
+<a href="https://wa.me/+201205749083" target="_blank" class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="28" height="28">
+</a>
+
 <header>
-  <nav>
-    <a href="index.html" class="brand">← العودة إلى الصفحة الرئيسية</a>
-  </nav>
+    <nav>
+        <a href="index.html" class="brand">← العودة إلى الصفحة الرئيسية</a>
+    </nav>
 </header>
 
 <div class="course-page">
@@ -58,8 +65,13 @@
             <div class="course-meta">
                 <span id="course-level"></span>
                 <span id="course-lessons"></span>
+                <span id="course-points">⭐ 0 نقطة</span>
             </div>
         </div>
+    </div>
+
+    <div class="overall-progress-wrap">
+        <div id="overall-progress" class="overall-progress-bar"></div>
     </div>
 
     <div class="course-main">
@@ -77,11 +89,37 @@
                     <div class="progress" id="progress" style="width: 0%"></div>
                 </div>
             </div>
-            
+
             <div id="lesson-content" class="lesson-content">
                 <p style="text-align:center; color:#666; font-size:18px; margin-top:50px;">
                     👈 اختر درس من الجانب لتبدأ التعلم
                 </p>
+            </div>
+
+            <div class="lesson-controls">
+                <button onclick="completeLesson()" class="btn btn-gold">✅ أكملت الدرس</button>
+                <button onclick="saveNote()" class="btn btn-outline">💾 حفظ ملاحظة</button>
+                <button onclick="askAI()" class="btn btn-teal">🤖 اسأل خوار</button>
+                <button onclick="window.open('live-session.html', '_blank')" class="btn btn-gold">انضم الآن للحصة المباشرة</button>
+            </div>
+
+            <!-- الكويز (يدعم اختيار من متعدد أو تمرين كود حسب نوع الدرس) -->
+            <div id="quiz-container">
+                <h3>اختبار سريع بعد الدرس</h3>
+                <div id="quiz-question"></div>
+
+                <!-- اختيار من متعدد -->
+                <div id="quiz-options"></div>
+
+                <!-- تمرين كود -->
+                <div id="code-exercise" class="code-exercise" style="display:none;">
+                    <p>اكتب الكود هنا:</p>
+                    <textarea id="code-editor"></textarea>
+                    <button type="button" onclick="runCode()" class="btn btn-outline" style="margin-top:10px;">▶ تشغيل الكود</button>
+                    <pre id="code-output"></pre>
+                </div>
+
+                <button id="quiz-submit" onclick="submitQuiz()" style="display:none; margin-top:15px;">إرسال الإجابة</button>
             </div>
 
             <div class="lesson-footer">
@@ -102,9 +140,31 @@ const coursesData = {
         level: "مبتدئ (8-12 سنة)",
         totalLessons: 24,
         lessons: [
-            { id: 1, title: "مرحبا بالعالم في سكراتش", content: "<h3>الدرس الأول</h3><p>سنتعلم كيفية إنشاء أول مشروع واستخدام الكتل الأساسية.</p><pre>حركة + مظهر + صوت</pre>" },
-            { id: 2, title: "الحركة والتحكم في الشخصيات", content: "<p>تعلم أوامر الحركة والتنقل بين الاتجاهات.</p>" },
-            { id: 3, title: "المتغيرات والنقاط", content: "<p>إنشاء نظام نقاط في اللعبة.</p>" }
+            {
+                id: 1,
+                title: "مرحبا بالعالم في سكراتش",
+                content: "<h3>الدرس الأول</h3><p>سنتعلم كيفية إنشاء أول مشروع واستخدام الكتل الأساسية.</p><pre>حركة + مظهر + صوت</pre>",
+                quiz: {
+                    question: "ما هي الكتل الأساسية الثلاث في سكراتش؟",
+                    options: ["حركة، مظهر، صوت", "طباعة، حلقات، شروط", "متغيرات، دوال، كائنات"],
+                    correct: 0
+                }
+            },
+            {
+                id: 2,
+                title: "الحركة والتحكم في الشخصيات",
+                content: "<p>تعلم أوامر الحركة والتنقل بين الاتجاهات.</p>"
+            },
+            {
+                id: 3,
+                title: "المتغيرات والنقاط",
+                content: "<p>إنشاء نظام نقاط في اللعبة.</p>",
+                quiz: {
+                    question: "المتغير في سكراتش بيستخدم لتخزين إيه؟",
+                    options: ["قيمة بتتغير أثناء تشغيل البرنامج", "صورة ثابتة فقط", "صوت فقط"],
+                    correct: 0
+                }
+            }
         ]
     },
     "python": {
@@ -114,69 +174,68 @@ const coursesData = {
         level: "متوسط (12-15 سنة)",
         totalLessons: 30,
         lessons: [
-            { id: 1, title: "مقدمة في بايثون", content: "<pre><code>print('مرحبا يا خوار!')</code></pre><p>أول برنامج لك.</p>" },
-            { id: 2, title: "الدوال والمدخلات", content: "<p>كتابة دوال واستقبال المدخلات من المستخدم.</p>" }
+            {
+                id: 1,
+                title: "مقدمة في بايثون",
+                content: "<pre><code>print('مرحبا يا خوار!')</code></pre><p>أول برنامج لك.</p>",
+                quiz: {
+                    question: "أي أمر بيستخدم لطباعة نص في بايثون؟",
+                    options: ["print()", "echo()", "console.log()"],
+                    correct: 0
+                }
+            },
+            {
+                id: 2,
+                title: "الدوال والمدخلات",
+                content: "<p>كتابة دوال واستقبال المدخلات من المستخدم.</p>"
+            }
         ]
     },
-    "games": {
-        title: "مختبر صناعة الألعاب",
-        emoji: "🎮",
-        color: "#F0A15B",
-        level: "مبتدئ",
-        totalLessons: 22,
-        lessons: []
-    },
-    "web": {
-        title: "مدرسة سحر الويب",
-        emoji: "🌐",
-        color: "#4FA8E8",
-        level: "متوسط",
-        totalLessons: 26,
-        lessons: []
-    },
-    "ai": {
-        title: "عقول وآلات الذكاء الاصطناعي",
-        emoji: "🧠",
-        color: "#F16B85",
-        level: "متقدم",
-        totalLessons: 20,
-        lessons: []
-    },
-    "pro": {
-        title: "بوابة المطوّر المحترف",
-        emoji: "🏗️",
-        color: "#E9C876",
-        level: "متقدم",
-        totalLessons: 18,
-        lessons: []
-    }
+    "games": { title: "مختبر صناعة الألعاب", emoji: "🎮", color: "#F0A15B", level: "مبتدئ", totalLessons: 22, lessons: [] },
+    "web": { title: "مدرسة سحر الويب", emoji: "🌐", color: "#4FA8E8", level: "متوسط", totalLessons: 26, lessons: [] },
+    "ai": { title: "عقول وآلات الذكاء الاصطناعي", emoji: "🧠", color: "#F16B85", level: "متقدم", totalLessons: 20, lessons: [] },
+    "pro": { title: "بوابة المطوّر المحترف", emoji: "🏗️", color: "#E9C876", level: "متقدم", totalLessons: 18, lessons: [] }
 };
 
+// ================= الحالة العامة =================
 let currentCourseKey = "scratch";
 let currentLessonIndex = 0;
 
-// تحميل الكورس
+let userProgress = JSON.parse(localStorage.getItem("userProgress")) || {};
+let quizScores = JSON.parse(localStorage.getItem("quizScores")) || {};
+let userPoints = parseInt(localStorage.getItem("userPoints")) || 0;
+let userNotes = JSON.parse(localStorage.getItem("userNotes")) || {};
+
+let selectedQuizAnswer = null;
+
+// ================= تحميل الكورس =================
 function loadCourse(key) {
     const course = coursesData[key];
     if (!course) return;
 
     currentCourseKey = key;
+    document.getElementById("page-title").textContent = course.title + " - خوارزم";
     document.getElementById("course-title").textContent = course.title;
     document.getElementById("course-emoji").textContent = course.emoji;
     document.getElementById("course-level").textContent = course.level;
     document.getElementById("course-lessons").textContent = course.totalLessons + " درس";
+    document.getElementById("course-points").textContent = "⭐ " + userPoints + " نقطة";
 
-    // تحميل الدروس
     loadLessons(course);
+    updateOverallProgress();
 }
 
 function loadLessons(course) {
     const container = document.getElementById("lessons-list");
     container.innerHTML = "";
 
+    const completed = userProgress[currentCourseKey] || [];
+
     course.lessons.forEach((lesson, index) => {
         const item = document.createElement("div");
         item.className = "lesson-item";
+        if (completed.includes(index)) item.classList.add("completed");
+        if (index === currentLessonIndex) item.classList.add("active");
         item.innerHTML = `<span>${lesson.id}</span> ${lesson.title}`;
         item.onclick = () => showLesson(index);
         container.appendChild(item);
@@ -196,12 +255,177 @@ function showLesson(index) {
     document.getElementById("lesson-title").textContent = lesson.title;
     document.getElementById("lesson-content").innerHTML = lesson.content;
 
-    // تحديث شريط التقدم
+    // إخفاء الكويز عند تبديل الدرس
+    document.getElementById("quiz-container").style.display = "none";
+    selectedQuizAnswer = null;
+
+    // تحديث شريط تقدم الدرس الحالي داخل الكورس
     const progress = ((index + 1) / course.lessons.length) * 100;
     document.getElementById("progress").style.width = progress + "%";
+
+    // تحديد العنصر النشط في القائمة
+    document.querySelectorAll(".lesson-item").forEach((el, i) => {
+        el.classList.toggle("active", i === index);
+    });
 }
 
-// أزرار التنقل
+// ================= إكمال الدرس =================
+function completeLesson() {
+    const courseKey = currentCourseKey;
+    if (!userProgress[courseKey]) userProgress[courseKey] = [];
+    if (!userProgress[courseKey].includes(currentLessonIndex)) {
+        userProgress[courseKey].push(currentLessonIndex);
+        localStorage.setItem("userProgress", JSON.stringify(userProgress));
+    }
+
+    // تحديث القائمة الجانبية والتقدم العام
+    loadLessons(coursesData[courseKey]);
+    updateOverallProgress();
+
+    const lesson = coursesData[courseKey].lessons[currentLessonIndex];
+    if (lesson && lesson.quiz) {
+        startQuiz(lesson.quiz);
+    } else {
+        alert("✅ تم حفظ تقدم الدرس!");
+    }
+}
+
+// alias لتوافق أي زر قديم بنفس الاسم
+function markAsComplete() { completeLesson(); }
+
+// ================= الكويز =================
+// كل درس فيه نوع واحد من الأسئلة:
+// 1) اختيار من متعدد: quiz = { question, options: [...], correct: index }
+// 2) تمرين كود: quiz = { question, codeTemplate: "...", expectedOutput: "..." }
+function startQuiz(quiz) {
+    const quizContainer = document.getElementById("quiz-container");
+    const optionsDiv = document.getElementById("quiz-options");
+    const codeExerciseDiv = document.getElementById("code-exercise");
+
+    quizContainer.style.display = "block";
+    document.getElementById("quiz-question").innerHTML = `<h4>${quiz.question}</h4>`;
+    document.getElementById("quiz-submit").style.display = "none";
+    selectedQuizAnswer = null;
+
+    const isCodeExercise = !!quiz.codeTemplate;
+
+    if (isCodeExercise) {
+        // وضع تمرين الكود
+        optionsDiv.style.display = "none";
+        optionsDiv.innerHTML = "";
+        codeExerciseDiv.style.display = "block";
+        document.getElementById("code-editor").value = quiz.codeTemplate;
+        document.getElementById("code-output").textContent = "";
+        document.getElementById("quiz-submit").style.display = "block";
+    } else {
+        // وضع الاختيار من متعدد
+        codeExerciseDiv.style.display = "none";
+        optionsDiv.style.display = "block";
+        optionsDiv.innerHTML = "";
+
+        quiz.options.forEach((option, i) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.textContent = option;
+            btn.onclick = () => {
+                selectedQuizAnswer = i;
+                document.querySelectorAll("#quiz-options button").forEach(b => b.classList.remove("selected"));
+                btn.classList.add("selected");
+                document.getElementById("quiz-submit").style.display = "block";
+            };
+            optionsDiv.appendChild(btn);
+        });
+    }
+
+    quizContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+// محاكاة بسيطة لتشغيل كود بايثون (print فقط، لأغراض تعليمية)
+function runCode() {
+    const code = document.getElementById("code-editor").value;
+    const output = document.getElementById("code-output");
+
+    const match = code.match(/print\(\s*['"](.*?)['"]\s*\)/);
+    if (match) {
+        output.textContent = match[1];
+        output.style.color = "#3FBF7F";
+    } else {
+        output.textContent = "لم يتم التعرف على مخرجات — تأكد إنك بتستخدم print('...')";
+        output.style.color = "#c0392b";
+    }
+}
+
+function submitQuiz() {
+    const lesson = coursesData[currentCourseKey].lessons[currentLessonIndex];
+    const quiz = lesson.quiz;
+    const isCodeExercise = !!quiz.codeTemplate;
+    let score = 0;
+
+    if (isCodeExercise) {
+        const output = document.getElementById("code-output").textContent.trim();
+        score = output === quiz.expectedOutput.trim() ? 100 : 0;
+        if (score === 100) {
+            alert("🎉 ممتاز! الكود صحيح +100 نقطة");
+            addPoints(100);
+        } else {
+            alert("❌ الناتج مش مطابق، جرّب تاني (تأكد إنك ضغطت ▶ تشغيل الكود الأول)");
+        }
+    } else {
+        if (selectedQuizAnswer === null) { alert("اختر إجابة الأول"); return; }
+        score = selectedQuizAnswer === quiz.correct ? 100 : 0;
+        if (score === 100) {
+            alert("🎉 إجابة صحيحة! +50 نقطة");
+            addPoints(50);
+        } else {
+            alert("❌ إجابة خاطئة، حاول تراجع الدرس تاني");
+        }
+    }
+
+    saveQuizScore(currentCourseKey, currentLessonIndex, score);
+    document.getElementById("quiz-container").style.display = "none";
+}
+
+function addPoints(points) {
+    userPoints += points;
+    localStorage.setItem("userPoints", userPoints);
+    document.getElementById("course-points").textContent = "⭐ " + userPoints + " نقطة";
+}
+
+function saveQuizScore(course, lessonIndex, score) {
+    if (!quizScores[course]) quizScores[course] = {};
+    quizScores[course][lessonIndex] = score;
+    localStorage.setItem("quizScores", JSON.stringify(quizScores));
+}
+
+// ================= التقدم العام =================
+function updateOverallProgress() {
+    const course = coursesData[currentCourseKey];
+    const completed = (userProgress[currentCourseKey] || []).length;
+    const total = course.lessons.length || 1;
+    const percent = Math.round((completed / total) * 100);
+    document.getElementById("overall-progress").style.width = percent + "%";
+}
+
+// ================= ملاحظات =================
+function saveNote() {
+    const key = currentCourseKey + "-" + currentLessonIndex;
+    const existing = userNotes[key] || "";
+    const note = prompt("اكتب ملاحظتك على هذا الدرس:", existing);
+    if (note === null) return;
+    userNotes[key] = note;
+    localStorage.setItem("userNotes", JSON.stringify(userNotes));
+    alert("💾 تم حفظ الملاحظة");
+}
+
+// ================= اسأل خوار =================
+function askAI() {
+    const question = prompt("اسأل خوار 🤖 عن أي حاجة في الدرس ده:");
+    if (!question) return;
+    // مكان مستقبلي للربط مع مساعد ذكاء اصطناعي حقيقي
+    alert("🤖 خوار: سؤال حلو! هنضيف إجابات ذكية قريباً. لحد ذلك تقدر تسأل مدرسك على واتساب.");
+}
+
+// ================= أزرار التنقل =================
 document.getElementById("next-btn").onclick = () => {
     const course = coursesData[currentCourseKey];
     if (currentLessonIndex < course.lessons.length - 1) {
@@ -215,15 +439,12 @@ document.getElementById("prev-btn").onclick = () => {
     }
 };
 
-// تحميل الكورس من الـ URL
+// ================= تحميل الكورس من الـ URL =================
 window.onload = () => {
     const params = new URLSearchParams(window.location.search);
     const courseKey = params.get('course') || 'scratch';
     loadCourse(courseKey);
 };
 </script>
-<button onclick="window.open('live-session.html', '_blank')" class="btn btn-gold">
-    انضم الأن 
-</button>
 </body>
 </html>

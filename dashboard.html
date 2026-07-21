@@ -6,27 +6,12 @@
     <title>لوحة التحكم - خوارزم</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .dashboard {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
-        }
-        .welcome-banner {
-            background: linear-gradient(135deg, #0E6E6C, #132322);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-        }
-        .progress-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: conic-gradient(#E9C876 0% 65%, #e2e8f0 65% 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .dashboard { max-width: 1300px; margin: 30px auto; padding: 20px; }
+        .welcome { background: linear-gradient(135deg, #0E6E6C, #132322); color: white; padding: 40px 50px; border-radius: 24px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; }
+        .progress-container, .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .course-progress, .badge-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .circle-progress { width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(#3FBF7F 0% 78%, #e2e8f0 78% 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .badge { font-size: 48px; text-align: center; margin: 15px 0; }
     </style>
 </head>
 <body>
@@ -34,83 +19,118 @@
 <header>
   <nav>
     <a href="index.html" class="brand">خوارزم</a>
-    <div style="margin-left:auto; display:flex; align-items:center; gap:20px;">
-      <span>مرحباً، <strong id="user-name">أحمد</strong> 👋</span>
-      <a href="index.html" class="btn btn-outline">خروج</a>
+    <div style="margin-left:auto; display:flex; gap:20px; align-items:center;">
+      <span>مرحباً، <strong id="user-name">أحمد محمد</strong></span>
+      <a href="#" onclick="logout()" class="btn btn-outline">خروج</a>
     </div>
   </nav>
 </header>
 
 <div class="dashboard">
-    <div class="welcome-banner">
-        <h1>مرحبا بعودتك إلى خوارزم! 🎉</h1>
-        <p>استمر في رحلتك التعليمية معنا</p>
+    <div class="welcome">
+        <div>
+            <h1>مرحبا بعودتك 👋</h1>
+            <p>أنت تقدم بشكل رائع — استمر!</p>
+        </div>
+        <div style="text-align:center;">
+            <div style="font-size:3.5rem;">🏅</div>
+            <div style="font-size:2.2rem; font-weight:700;">2,450</div>
+            <small>نقطة خبرة</small>
+        </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-
-        <!-- بطاقة التقدم -->
-        <div class="course-card">
-            <h3>تقدمك العام</h3>
-            <div style="display:flex; align-items:center; gap:25px; margin:25px 0;">
-                <div class="progress-circle">
+    <!-- دوراتي الحالية -->
+    <h2 style="margin-bottom:20px;">دوراتي الحالية</h2>
+    <div class="progress-container">
+        <div class="course-progress">
+            <div style="display:flex; align-items:center; gap:25px;">
+                <div class="circle-progress">
                     <div style="text-align:center;">
-                        <div style="font-size:2rem; font-weight:800;">65%</div>
-                        <small>مكتمل</small>
+                        <div style="font-size:2.1rem; font-weight:800;">78%</div>
                     </div>
                 </div>
                 <div>
-                    <h4>مغامرات سكراتش</h4>
-                    <p>16 درس من 24 مكتمل</p>
+                    <h3>🐍 مغامرات سكراتش</h3>
+                    <p>18 من 24 درس مكتمل</p>
                 </div>
             </div>
-            <a href="course.html?course=scratch" class="btn btn-gold">تابع الدورة</a>
+            <a href="course.html?course=scratch" class="btn btn-gold" style="margin-top:20px; width:100%;">تابع الدورة</a>
         </div>
 
-        <!-- الدورات المتاحة -->
-        <div class="course-card">
-            <h3>دوراتك الحالية</h3>
-            <ul style="margin:20px 0; line-height:2.4;">
-                <li>🐍 مغامرات سكراتش <span style="color:#3FBF7F;">(65%)</span></li>
-                <li>🤖 بايثون وصديقي الآلي <span style="color:#8A6BE0;">(30%)</span></li>
-            </ul>
-            <a href="index.html#courses" class="btn btn-outline">استكشف دورات جديدة</a>
-        </div>
-
-        <!-- نقاط وإنجازات -->
-        <div class="course-card">
-            <h3>إنجازاتك</h3>
-            <div style="font-size:3rem; margin:20px 0;">🏆 2450</div>
-            <p>نقطة خبرة</p>
-            <div style="margin-top:20px;">
-                <span style="background:#E9C876; padding:8px 16px; border-radius:30px;">🔥 سلسلة 7 أيام</span>
+        <div class="course-progress">
+            <div style="display:flex; align-items:center; gap:25px;">
+                <div class="circle-progress" style="background: conic-gradient(#8A6BE0 0% 45%, #e2e8f0 45% 100%);">
+                    <div style="text-align:center;">
+                        <div style="font-size:2.1rem; font-weight:800;">45%</div>
+                    </div>
+                </div>
+                <div>
+                    <h3>🤖 بايثون وصديقي الآلي</h3>
+                    <p>14 من 30 درس مكتمل</p>
+                </div>
             </div>
+            <a href="course.html?course=python" class="btn btn-gold" style="margin-top:20px; width:100%;">تابع الدورة</a>
         </div>
     </div>
 
-    <!-- جلسات لايف قادمة -->
-    <div style="margin-top:50px;">
-        <h2>📅 الجلسات اللايف القادمة</h2>
-        <div style="background:white; padding:25px; border-radius:16px; margin-top:15px;">
-            <p><strong>اليوم 8:00 مساءً</strong> - مقدمة في الذكاء الاصطناعي</p>
-            <button onclick="window.open('live-session.html','_blank')" class="btn btn-gold">
-                انضم للجلسة الآن
-            </button>
+    <!-- إنجازاتي وشاراتي -->
+    <h2 style="margin:50px 0 25px;">إنجازاتي وشاراتي 🏆</h2>
+    <div class="achievements-grid">
+        <div class="badge-card">
+            <div class="badge">🔥</div>
+            <h3>سلسلة 7 أيام</h3>
+            <p>تعلمت 7 أيام متتالية</p>
         </div>
+        <div class="badge-card">
+            <div class="badge">🌟</div>
+            <h3>مبرمج مبتدئ</h3>
+            <p>أكملت أول 10 دروس</p>
+        </div>
+        <div class="badge-card">
+            <div class="badge">🧠</div>
+            <h3>عبقري الذكاء الاصطناعي</h3>
+            <p>أنهيت دورة الـ AI</p>
+        </div>
+        <div class="badge-card">
+            <div class="badge">🏅</div>
+            <h3>صانع ألعاب</h3>
+            <p>صممت أول لعبة</p>
+        </div>
+    </div>
+
+    <!-- جلسات لايف -->
+    <h2 style="margin:50px 0 20px;">الجلسات اللايف القادمة</h2>
+    <div style="background:white; padding:30px; border-radius:20px;">
+        <p><strong>اليوم 8:00 مساءً</strong> — مقدمة في الذكاء الاصطناعي مع خوار</p>
+        <button onclick="window.open('live-session.html','_blank')" class="btn btn-gold">انضم الآن</button>
     </div>
 </div>
 
 <script>
-// التحقق من تسجيل الدخول
-if (localStorage.getItem("isLoggedIn") !== "true") {
-    alert("يرجى تسجيل الدخول أولاً");
+    
+// حماية الداشبورد العادي
+if (localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("isAdmin") === "true") {
+    alert("غير مصرح لك بالدخول");
     window.location.href = "login.html";
 }
 
-// عرض اسم المستخدم
 const userName = localStorage.getItem("userName") || "طالب";
 document.getElementById("user-name").textContent = userName;
-</script>
 
+// حماية الصفحة
+if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+
+
+
+function logout() {
+    if (confirm("هل تريد تسجيل الخروج؟")) {
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+}
+</script>
 </body>
 </html>

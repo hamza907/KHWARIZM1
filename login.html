@@ -50,12 +50,12 @@
     </div>
     
     <div class="form-group">
-        <label for="password">كلمة المرور</label>
-        <div class="input-wrapper">
-            <span class="input-icon">🔒</span>
-            <input type="password" id="password" placeholder="••••••••" required>
-        </div>
+    <label>كلمة المرور</label>
+    <div style="position:relative;">
+        <input type="password" id="password" required>
+        <span onclick="togglePassword('password')" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666;">👁️</span>
     </div>
+</div>
     
     <div class="flex-between">
         <label class="remember">
@@ -80,31 +80,50 @@
         </div>
     </div>
 </div>
+
 <script>
 document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault();
     
-    const email = document.getElementById("email").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
     const password = document.getElementById("password").value;
 
-    // تحقق بسيط
-    if (!email || !password) {
-        alert("يرجى إدخال البريد الإلكتروني وكلمة المرور");
-        return;
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userName", user.name);
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("isAdmin", user.email === "admin@khwarizm.com" ? "true" : "false");
+
+        alert(`✅ مرحباً ${user.name}!`);
+        
+        if (user.email === "admin@khwarizm.com") {
+            window.location.href = "admin.html";
+        } else {
+            window.location.href = "dashboard.html";
+        }
+    } else {
+        alert("البريد أو كلمة المرور غير صحيحة");
     }
 
-    // هنا يمكنك إضافة تحقق حقيقي لاحقًا (من السيرفر)
-
-    // حفظ بيانات المستخدم
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("userEmail", email);
-    localStorage.setItem("userName", email.split("@")[0]); // اسم مؤقت
-
-    alert("✅ تم تسجيل الدخول بنجاح! مرحباً بك 👋");
-    
-    // التوجيه إلى لوحة التحكم
-    window.location.href = "dashboard.html";
 });
+
+// دالة إظهار / إخفاء كلمة المرور
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const icon = field.parentElement.querySelector("span");
+    
+    if (field.type === "password") {
+        field.type = "text";
+        icon.textContent = "🙈";   // عين مغلقة
+    } else {
+        field.type = "password";
+        icon.textContent = "👁️";   // عين مفتوحة
+    }
+}
+
 </script>
 
 <script src="script.js"></script>
