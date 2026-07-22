@@ -102,28 +102,19 @@
     <h2 style="margin:50px 0 20px;">الجلسات اللايف القادمة</h2>
     <div style="background:white; padding:30px; border-radius:20px;">
         <p><strong>اليوم 8:00 مساءً</strong> — مقدمة في الذكاء الاصطناعي مع خوار</p>
-        <button onclick="window.open('live-session.html','_blank')" class="btn btn-gold">انضم الآن</button>
+        <button onclick="window.open('live-sessions.html','_blank')" class="btn btn-gold">انضم الآن</button>
     </div>
 </div>
 
 <script>
-    
-// حماية الداشبورد العادي
-if (localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("isAdmin") === "true") {
-    alert("غير مصرح لك بالدخول");
+if (localStorage.getItem("isLoggedIn") !== "true") {
     window.location.href = "login.html";
+} else if (localStorage.getItem("isAdmin") === "true") {
+    window.location.href = "admin.html";
 }
 
 const userName = localStorage.getItem("userName") || "طالب";
 document.getElementById("user-name").textContent = userName;
-
-// حماية الصفحة
-if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
-}
-
-
-
 
 function logout() {
     if (confirm("هل تريد تسجيل الخروج؟")) {

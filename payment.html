@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الاشتراك والدفع - خوارزم</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2**✅ تم تعديل صفحة الدفع بالكامل** لتتناسب مع الباقات الجديدة:
-
-### `payment.html` (النسخة المحدثة):
-
-```html
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الاشتراك والدفع - خوارزم</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -37,6 +25,10 @@
             border-color: #E9C876;
             transform: scale(1.05);
             box-shadow: 0 20px 40px rgba(233, 200, 118, 0.25);
+        }
+        .plan-card.selected {
+            border-color: #0E6E6C;
+            box-shadow: 0 10px 30px rgba(14, 110, 108, 0.2);
         }
         .price {
             font-size: 2.8rem;
@@ -67,8 +59,7 @@
 
     <div class="price-grid" style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
 
-        <!-- باقة فضية -->
-        <div class="plan-card" style="width: 340px;">
+        <div class="plan-card" data-plan="silver" style="width: 340px;">
             <h3>الباقة الفضية</h3>
             <div class="price">5,000 ج.م</div>
             <div class="duration">لمدة 3 أشهر</div>
@@ -81,9 +72,7 @@
             <button onclick="selectPlan(this, 5000, 'الباقة الفضية - 3 أشهر')" class="btn btn-outline full-width">اشترك الآن</button>
         </div>
 
-        <!-- باقة ذهبية -->
-        <div class="plan-card popular" style="width: 340px;">
-            
+        <div class="plan-card popular" data-plan="gold" style="width: 340px;">
             <h3>الباقة الذهبية</h3>
             <div class="price">11,000 ج.م</div>
             <div class="duration">لمدة 6 أشهر</div>
@@ -97,10 +86,9 @@
             <button onclick="selectPlan(this, 11000, 'الباقة الذهبية - 6 أشهر')" class="btn btn-gold full-width">اشترك الآن</button>
         </div>
 
-        <!-- باقة بلاتينية -->
-        <div class="plan-card" style="width: 340px;">
+        <div class="plan-card" data-plan="platinum" style="width: 340px;">
             <h3>الباقة البلاتينية</h3>
-            <div class="price">20,000 ج.م</div>
+            <div class="price">18,000 ج.م</div>
             <div class="duration">لمدة 12 شهر (سنة كاملة)</div>
             <ul style="text-align:right; margin:25px 0; line-height:2.3;">
                 <li>✓ كل المميزات السابقة</li>
@@ -108,12 +96,11 @@
                 <li>✓ مشاريع شخصية</li>
                 <li>✓ دعم 24/7</li>
             </ul>
-            <button onclick="selectPlan(this, 20000, 'الباقة البلاتينية - 12 شهر')" class="btn btn-outline full-width">اشترك الآن</button>
+            <button onclick="selectPlan(this, 18000, 'الباقة البلاتينية - 12 شهر')" class="btn btn-outline full-width">اشترك الآن</button>
         </div>
 
     </div>
 
-    <!-- نموذج الدفع -->
     <div class="payment-form" id="payment-form" style="display:none;">
         <h2>إتمام الدفع</h2>
         <p>الباقة المختارة: <strong id="selected-plan"></strong></p>
@@ -139,13 +126,22 @@
 </div>
 
 <script>
+const PLANS = {
+    silver: { price: 5000, name: "الباقة الفضية - 3 أشهر" },
+    gold: { price: 11000, name: "الباقة الذهبية - 6 أشهر" },
+    platinum: { price: 18000, name: "الباقة البلاتينية - 12 شهر" }
+};
+
 function selectPlan(btn, price, planName) {
+    document.querySelectorAll(".plan-card").forEach(card => card.classList.remove("selected"));
+    btn.closest(".plan-card").classList.add("selected");
+
     document.getElementById("payment-form").style.display = "block";
     document.getElementById("selected-plan").innerHTML = `${planName} <br><strong>${price.toLocaleString()} جنيه</strong>`;
-    
+
     window.scrollTo({
         top: document.getElementById("payment-form").offsetTop - 50,
-        behavior: 'smooth'
+        behavior: "smooth"
     });
 }
 
@@ -154,6 +150,16 @@ document.getElementById("paymentForm").addEventListener("submit", function(e) {
     alert("✅ تمت عملية الدفع بنجاح!\n\nشكراً لاشتراكك في خوارزم\nسيتم تفعيل حسابك خلال دقائق.");
     window.location.href = "dashboard.html";
 });
+
+const planParam = new URLSearchParams(window.location.search).get("plan");
+if (planParam && PLANS[planParam]) {
+    const card = document.querySelector(`.plan-card[data-plan="${planParam}"]`);
+    const btn = card && card.querySelector("button");
+    if (btn) {
+        const plan = PLANS[planParam];
+        selectPlan(btn, plan.price, plan.name);
+    }
+}
 </script>
 
 </body>

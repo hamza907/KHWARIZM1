@@ -99,6 +99,12 @@
             <h2>المدفوعات والاشتراكات</h2>
             <p>إجمالي الإيرادات: <strong>1,245,000 ج.م</strong></p>
         </div>
+
+        <!-- Reports -->
+        <div id="reports-section" style="display:none;">
+            <h2>التقارير</h2>
+            <p>تقارير التقدم والإحصائيات ستتوفر هنا قريباً.</p>
+        </div>
     </div>
 </div>
 
@@ -117,13 +123,17 @@ function showSection(section) {
         'students': 'إدارة الطلاب',
         'teachers': 'إدارة المعلمين',
         'courses': 'إدارة الدورات',
-        'payments': 'المدفوعات'
+        'payments': 'المدفوعات',
+        'reports': 'التقارير'
     }[section];
 }
 
 function logout() {
     if (confirm("تأكيد تسجيل الخروج؟")) {
+        localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("isAdmin");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
         window.location.href = "login.html";
     }
 }

@@ -82,24 +82,32 @@
 </div>
 
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+async function hashPassword(password) {
+    const data = new TextEncoder().encode(password);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-    
+
     const email = document.getElementById("email").value.trim().toLowerCase();
     const password = document.getElementById("password").value;
+    const passwordHash = await hashPassword(password);
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find(u => u.email === email && u.password === password);
+    const user = users.find(u => u.email === email && (u.passwordHash === passwordHash || u.password === password));
 
     if (user) {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userName", user.name);
         localStorage.setItem("userEmail", user.email);
-        localStorage.setItem("isAdmin", user.email === "admin@khwarizm.com" ? "true" : "false");
+        const isAdmin = user.role === "admin" || user.email === "admin@khwarizm.com";
+        localStorage.setItem("isAdmin", isAdmin ? "true" : "false");
 
         alert(`✅ مرحباً ${user.name}!`);
-        
-        if (user.email === "admin@khwarizm.com") {
+
+        if (isAdmin) {
             window.location.href = "admin.html";
         } else {
             window.location.href = "dashboard.html";
@@ -107,7 +115,6 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     } else {
         alert("البريد أو كلمة المرور غير صحيحة");
     }
-
 });
 
 // دالة إظهار / إخفاء كلمة المرور
@@ -125,7 +132,6 @@ function togglePassword(fieldId) {
 }
 
 </script>
-
 <script src="script.js"></script>
 </body>
 </html>
